@@ -197,7 +197,7 @@ Ao iniciar este projeto você concorda com as diretrizes do Código de Conduta e
 
   > :information_source: IMPORTANTE
   
-  - O teste local deve rodar o script `npm run start:test`, que vai iniciar e depois encerrar, em segundo plano **outra instância da sua API, na porta `3030`**. Dessa forma, o teste conseguira consumir sua API e validar os requisitos.
+  - O teste local deve rodar o script `npm run start:test`, que vai iniciar e depois encerrar, em segundo plano **outra instância da sua API, na porta `3030`**. Dessa forma, o teste conseguirá consumir sua API e validar os requisitos.
     - Caso seu computador não suporte rodar um servidor extra para os testes, execute um servidor na porta 3000 e rode o script `npm run test:dev`, este não vai criar outra instância, mas vai esperar um servidor na porta 3000. 
 
   - Sua API deve estar funcionando minimamente para que o teste comece, dado que ele aguarda o estabelecimento da mesma para começar o teste.
