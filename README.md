@@ -105,7 +105,7 @@ Ao iniciar este projeto você concorda com as diretrizes do Código de Conduta e
   <summary><strong>‼️ Antes de começar a desenvolver</strong></summary>
 
 1. Clone o repositório
-  * `git clone git@github.com:betrybe/sd-025-b-project-blogs-api.git`.
+  * `git clone git@github.com:tryber/sd-025-b-project-blogs-api.git`.
   * Entre na pasta do repositório que você acabou de clonar:
     * `cd sd-025-b-project-blogs-api`
 
