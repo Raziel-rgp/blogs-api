@@ -6,11 +6,18 @@ const userRegister = async (displayName, email, password, image) => {
 };
 
 const findByEmail = async (email) => {
-  const result = User.findOne({ where: { email } });
+  const result = await User.findOne({ where: { email } });
+  console.log(result);
+  return result;
+};
+
+const findAll = async () => {
+  const result = await User.findAll({ attributes: { exclude: 'password' } });
   return result;
 };
 
 module.exports = {
   userRegister,
   findByEmail,
+  findAll,
 };

@@ -22,6 +22,12 @@ const userRegister = async (req, res) => {
   }
 };
 
+const findAll = async (req, res) => {
+  const message = await userService.findAll(req);
+  return res.status(200).json(message);
+};
+
 module.exports = {
   userRegister,
+  findAll,
 };
