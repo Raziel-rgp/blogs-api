@@ -3,6 +3,8 @@ const { userRegisterSchema } = require('../middlewares/validations');
 const { tokenGenerator } = require('../middlewares/validateJWT');
 
 // Marcel Guimaraes 025 b ajudou d+++++++++++++++++++++++++
+const sms = { message: 'User does not exist' };
+
 const userRegister = async (req, res) => {
   try {
     const { email, displayName, password, image } = await userRegisterSchema
@@ -27,7 +29,15 @@ const findAll = async (req, res) => {
   return res.status(200).json(message);
 };
 
+const findById = async (req, res) => {
+  const { id } = req.params;
+  const user = await userService.findById(id);
+  const result = !user ? res.status(404).json(sms) : res.status(200).json(user);
+  return result;
+};
+
 module.exports = {
   userRegister,
   findAll,
+  findById,
 };
