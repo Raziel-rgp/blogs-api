@@ -14,6 +14,26 @@ const findAll = async () => BlogPost.findAll({
   ],
 });
 
+const findById = async (id) => {
+  const result = BlogPost.findOne({ 
+    where: { id },
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: { exclude: 'password' },
+      },
+      {
+        model: Category,
+        as: 'categories',
+        attributes: ['id', 'name'],
+      },
+    ],
+  });
+  return result;
+};
+
 module.exports = {
   findAll,
+  findById,
 };
