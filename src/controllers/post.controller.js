@@ -13,7 +13,15 @@ const findById = async (req, res) => {
   return result;
 };
 
+const updateById = async (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  const att = await postService.updateById(id, { title, content });
+  return res.status(200).json(att);
+};
+
 module.exports = {
   findAll,
   findById,
+  updateById,
 };
