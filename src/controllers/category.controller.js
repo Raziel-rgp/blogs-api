@@ -8,6 +8,12 @@ const categoryRegister = async (req, res) => {
   return res.status(201).json(result);
 };
 
+const findAll = async (req, res) => {
+  const message = await categoryService.findAll(req);
+  return res.status(200).json(message);
+};
+
 module.exports = {
   categoryRegister,
+  findAll,
 };
