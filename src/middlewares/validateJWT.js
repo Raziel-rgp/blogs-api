@@ -27,7 +27,9 @@ const tokenValidator = async (req, res, next) => {
   try {
     const decode = verifyToken(authorization);
     const user = await userService.findByEmail(decode.login.email);
-    if (decode.login.email === user.dataValues.email) { return next(); }
+    if (decode.login.email === user.dataValues.email) { 
+      return next(); 
+    }
   } catch (err) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
