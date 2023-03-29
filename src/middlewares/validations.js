@@ -12,6 +12,21 @@ const categoryRegisterSchema = Joi.object({
   name: Joi.string().required(),
 });
 
+const postRegisterSchema = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+  categoryIds: Joi.array().required().messages({
+    'any.required': 'one or more "categoryIds" not found',
+    'string.empty': 'one or more "categoryIds" not found',
+  }),
+});
+
+const validatePostSchema = (req, res, next) => {
+  const { error } = postRegisterSchema.validate(req.body);
+  const result = error ? res.status(400).json({ message: error.details[0].message }) : next();
+  return result;
+};
+
 // com ajuda de Rubens Deola 23 tribo A
 const validateCategory = (req, res, next) => {
   const { error } = categoryRegisterSchema.validate(req.body);
@@ -35,8 +50,10 @@ const userPermissions = async (req, res, next) => {
   const token = req.headers.authorization;
   const { id } = req.params;
   const decode = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
-  console.log(decode);
   const post = await postService.findById(id);
+  if (!post) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
   if (post.userId !== decode.login.id) {
     return res.status(401).json({ message: 'Unauthorized user' });
   }
@@ -49,4 +66,5 @@ module.exports = {
   validateCategory,
   validatePost,
   userPermissions,
+  validatePostSchema,
 };

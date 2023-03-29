@@ -1,4 +1,5 @@
 const { postService } = require('../services');
+const { verifyToken } = require('../middlewares/validateJWT');
 
 const findAll = async (_req, res) => {
   const result = await postService.findAll();
@@ -20,8 +21,28 @@ const updateById = async (req, res) => {
   return res.status(200).json(att);
 };
 
+const deleteById = async (req, res) => {
+  const { id } = req.params;
+  await postService.deleteById(id);
+  return res.status(204).end();
+};
+
+const createPost = async (req, res) => {
+  const { title, content, categoryIds } = req.body;
+  const { authorization } = req.headers;
+  const { login } = verifyToken(authorization);
+  const category = await postService.findCategoriesById(categoryIds);
+  if (category.length !== 2) {
+    return res.status(400).json({ message: 'one or more "categoryIds" not found' });
+  }
+  const message = await postService.createPost(login.id, { title, content, categoryIds });
+  return res.status(201).json(message);
+};
+
 module.exports = {
   findAll,
   findById,
   updateById,
+  deleteById,
+  createPost,
 };

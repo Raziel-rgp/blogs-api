@@ -20,9 +20,15 @@ const findById = async (id) => {
   return result;
 };
 
+const deleteUser = async (id) => {
+  await User.destroy({ where: { id } });
+  return true;
+};
+
 module.exports = {
   userRegister,
   findByEmail,
   findAll,
   findById,
+  deleteUser,
 };

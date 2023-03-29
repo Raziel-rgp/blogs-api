@@ -36,8 +36,16 @@ const findById = async (req, res) => {
   return result;
 };
 
+const deleteUsuario = async (req, res) => {
+  const token = req.headers.authorization;
+  const decode = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+  await userService.deleteUser(decode.login.id);
+  return res.status(204).json();
+};
+
 module.exports = {
   userRegister,
   findAll,
   findById,
+  deleteUsuario,
 };
